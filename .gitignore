@@ -1,2 +1,3 @@
 # Ignore jupyter checkpints
 **/.ipynb_checkpoints/
+**/.vscode/
