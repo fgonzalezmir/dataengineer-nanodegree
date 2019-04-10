@@ -26,16 +26,16 @@ The data model I've implemented is a star model. It is the typical schema for a 
 
 **Table songplays**
 
-| COLUMN  	| TYPE  	| KEY   	|
+| COLUMN  	| TYPE  	| CONSTRAINT  	|
 |---	|---	|---	|	
 |   songplay_id	| SERIAL  	|   PRIMARY KEY	| 
-|   start_time	|   bigint	|   	| 
-|   user_id	|   int	|   	| 
-|   level	|   varchar |   	| 
+|   start_time	|   bigint	|   NOT NULL	| 
+|   user_id	|   int	|   NOT NULL	| 
+|   level	|   varchar |   NOT NULL	| 
 |   song_id	|   varchar	|   	| 
 |   artist_id	|   varchar	|   	| 
-|   session_id	|   int	|   	| 
-|   location	|   text	|   	| 
+|   session_id	|   int	|   NOT NULL	| 
+|   location	|   text	|   NOT NULL	| 
 |   user_agent	|   text	|   	| 
 
 The songplay_id field is the primary key and it is an auto-incremental value.
@@ -50,13 +50,13 @@ The query to insert data on this table is:
  
  **Table users**
  
- | COLUMN  	| TYPE  	| KEY   	|
+ | COLUMN  	| TYPE  	| CONSTRAINT  	|
 |---	|---	|---	|	
 |   user_id	| int  	|   PRIMARY KEY	| 
-|   first_name	|   varchar	|   	| 
-|   last_name	|   varchar	|   	| 
+|   first_name	|   varchar	|  NOT NULL 	| 
+|   last_name	|   varchar	|  NOT NULL 	| 
 |   gender	|   varchar(1) |   	| 
-|   level	|   varchar	|   	| 
+|   level	|   varchar	|   NOT NULL	| 
 
  
  The query to insert data on this table is:
@@ -64,7 +64,9 @@ The query to insert data on this table is:
  ``INSERT INTO users (user_id, first_name, last_name, gender, level) 
     VALUES (%s, %s, %s, %s, %s) 
     ON CONFLICT (user_id) 
-    DO NOTHING``
+        DO UPDATE
+        SET first_name = EXCLUDED.first_name, last_name = EXCLUDED.last_name,
+        gender = EXCLUDED.gender, level = EXCLUDED.level``
 
 An alternative is change the target of *ON CONFLICT*. I've supposed the info about users don't change. But it 
 could be probably a better way DO UPDATE action in order to get the latest info about users with a reduction of 
@@ -72,33 +74,29 @@ performance for the UPDATE. DO NOTHING is faster.
 
 **Table songs**
 
- | COLUMN  	| TYPE  	| KEY   	|
+ | COLUMN  	| TYPE  	| CONSTRAINT   	|
 |---	|---	|---	|	
 |   song_id	| varchar  	|   PRIMARY KEY	| 
-|   title	|   text	|  	| 
-|   artist_id	|   varchar	|   INDEX	| 
+|   title	|   text	|  NOT NULL	| 
+|   artist_id	|   varchar	|   NOT NULL	| 
 |   year	|   int |   	| 
 |   duration	|   numeric	|   	| 
-
-I've created an index for fast queries in the ETL. We need to make a JOIN with artist_id from songs table to artists
- table to fill the FACTS Table. This index improves the performance of the JOIN:
- 
-``CREATE INDEX idx_artist_id_songs ON songs(artist_id);``
-
 
  The query to insert data on this table is:
  
 ``INSERT INTO songs (song_id, title, artist_id, year, duration) 
-VALUES (%s, %s, %s, %s, %s) 
-ON CONFLICT (song_id) 
-DO NOTHING``
+    VALUES (%s, %s, %s, %s, %s) 
+    ON CONFLICT (song_id) 
+        DO UPDATE
+        SET title = EXCLUDED.title, artist_id = EXCLUDED.artist_id,
+        year = EXCLUDED.year, duration = EXCLUDED.duration ``
 
 **Table artists**
 
- | COLUMN  	| TYPE  	| KEY   	|
+ | COLUMN  	| TYPE  	| CONSTRAINT   	|
 |---	|---	|---	|	
 |   artist_id	| varchar  	|   PRIMARY KEY	| 
-|   name	|   varchar	|   	| 
+|   name	|   varchar	|   NOT NULL	| 
 |   location	|   text	|   	| 
 |   latitude	|   decimal	|   	| 
 |   longitude	|   decimal |   	| 
@@ -107,21 +105,23 @@ DO NOTHING``
  The query to insert data on this table is:
  
 ``INSERT INTO artists (artist_id, name, location, latitude, longitude) 
-VALUES (%s, %s, %s, %s, %s) 
-ON CONFLICT (artist_id) 
-DO NOTHING``
+    VALUES (%s, %s, %s, %s, %s) 
+    ON CONFLICT (artist_id) 
+        DO UPDATE
+        SET name = EXCLUDED.name, location = EXCLUDED.location,
+        latitude = EXCLUDED.latitude, longitude = EXCLUDED.longitude``
 
 **Table time**
  
- | COLUMN  	| TYPE  	| KEY   	|
+ | COLUMN  	| TYPE  	| CONSTRAINT   	|
 |---	|---	|---	|	
 |   start_time	| bigint  	|   PRIMARY KEY	| 
-|   hour	|   int	|   	| 
-|   day	|   int	|   	| 
-|   week	|   int	|   	| 
-|   month	|   int	|   	| 
-|   year	|   int	|   	| 
-|   weekday	|   varchar	|   	| 
+|   hour	|   int	|   NOT NULL	| 
+|   day	|   int	|   NOT NULL	| 
+|   week	|   int	|   NOT NULL	| 
+|   month	|   int	|   NOT NULL	| 
+|   year	|   int	|   NOT NULL	| 
+|   weekday	|   varchar	|   NOT NULL	| 
 
  The query to insert data on this table is:
  
@@ -150,8 +150,7 @@ The ETL is in the file **etl.py** and is divided in the next sections:
     
 ####sql_queries.py
 
-This file contains all the queries to the database. All the inserts are improved for better performance with the
- clause ON CONFLICT DO NOTHING. 
+This file contains all the queries to the database. 
  
  In this file are:
  1. All the CREATE sentences for all the tables.

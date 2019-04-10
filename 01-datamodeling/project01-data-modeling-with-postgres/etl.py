@@ -5,32 +5,56 @@ import pandas as pd
 from sql_queries import *
 
 
+def insert_record(cur, insert_query, df, fields):
+    """
+    Insert a record into a DB table.
+    :param cur: connection cursor to insert the data in DB.
+    :param insert_query: query SQL for Insert.
+    :param df: dataframe with the record.
+    :param fields: array of fields of the data to insert.
+    """
+    record = df[fields].values[0].tolist()
+    cur.execute(insert_query, record)
+
+
+def insert_dataframe(cur, df, insert_query):
+    """
+    Insert a pandas dataframe into a DB table
+    :param cur: connection cursor to insert the data in DB.
+    :param df: dataframe with the record.
+    :param insert_query: query SQL for Insert.
+    """
+    for i, row in df.iterrows():
+        cur.execute(insert_query, list(row))
+
+
 def process_song_file(cur, filepath):
+    """
+    Process the songs files and insert data into dimension tables: songs and artists.
+    :param cur: connection cursor to insert the data in DB.
+    :param filepath: path/to/the/song/file.
+    """
+
     # open song file
     df = pd.read_json(filepath, lines=True)
 
     # insert song record
-    song_data = df[['song_id','title','artist_id', 'year', 'duration']]\
-        .values[0]\
-        .tolist()
-    cur.execute(song_table_insert, song_data)
+    insert_record(cur, song_table_insert, df, ['song_id', 'title', 'artist_id', 'year', 'duration'])
     
     # insert artist record
-    artist_data = df[['artist_id','artist_name','artist_location', 'artist_latitude', 'artist_longitude']]\
-        .values[0]\
-        .tolist()
-    cur.execute(artist_table_insert, artist_data)
+    insert_record(cur, artist_table_insert, df,
+                  ['artist_id', 'artist_name', 'artist_location', 'artist_latitude', 'artist_longitude'])
 
 
-def process_log_file(cur, filepath):
-    # open log file
-    df = pd.read_json(filepath, lines=True)
+def expand_time_data(df, ts_field):
+    """
+    Add more time elements to a dataframe from a UNIX timestamp in milliseconds.
+    :param df: pandas dataframe to add time fields.
+    :param ts_field: name of the timestamp field field.
+    :return: pandas dataframe with more time fields.
+    """
 
-    # filter by NextSong action
-    df = df.loc[df['page'] == 'NextSong']
-
-    # convert timestamp column to datetime
-    df['datetime'] = pd.to_datetime(df['ts'], unit='ms')
+    df['datetime'] = pd.to_datetime(df[ts_field], unit='ms')
     t = df
     t['year'] = t['datetime'].dt.year
     t['month'] = t['datetime'].dt.month
@@ -38,47 +62,108 @@ def process_log_file(cur, filepath):
     t['hour'] = t['datetime'].dt.hour
     t['weekday_name'] = t['datetime'].dt.weekday_name
     t['week'] = t['datetime'].dt.week
-    
+
+    return t
+
+
+def get_songid_artistid(cur, song, artist, length):
+    """
+    Gets the song_id and the artist_id from song tittle, artist name and gon duration.
+    :param cur: connection cursor to query the data in DB.
+    :param song: song tittle
+    :param artist: artist name
+    :param length: song duration
+    :return: returns song_id and artist_id
+    """
+
+    # get songid and artistid from song and artist tables
+    cur.execute(song_select, (song, artist, length))
+    results = cur.fetchone()
+
+    if results:
+        songid, artistid = results
+    else:
+        songid, artistid = None, None
+
+    return songid, artistid
+
+
+def insert_facts_songplays(cur, df):
+    """
+    Insert songplays fact table
+    :param cur: connection cursor to insert the data in DB.
+    :param df: dataframe with song plays data.
+    """
+
+    # insert songplay records
+    for index, row in df.iterrows():
+        song_id, artist_id = get_songid_artistid(cur, row.song, row.artist, row.length)
+
+        # insert songplay record
+        songplay_data = (row.ts, row.userId, row.level, song_id, artist_id,
+                         row.itemInSession, row.location, row.userAgent)
+        cur.execute(songplay_table_insert, songplay_data)
+
+
+def process_log_file(cur, filepath):
+    """
+    Process the log files and insert data into dimension tables: time and users.
+    Insert data into the facts table songplays.
+    :param cur: connection cursor to insert the data in DB.
+    :param filepath: path/to/the/log/file.
+    """
+
+    # open log file
+    df = pd.read_json(filepath, lines=True)
+
+    # filter by NextSong action
+    df = df.loc[df['page'] == 'NextSong']
+
+    # convert timestamp column to datetime
+    t = expand_time_data(df, 'ts')
+
     # insert time data records
-    #time_data =
-    #column_labels =
     time_df = t[['ts', 'hour', 'day', 'week', 'month', 'year', 'weekday_name']]
 
-    for i, row in time_df.iterrows():
-        cur.execute(time_table_insert, list(row))
+    insert_dataframe(cur, time_df, time_table_insert)
 
     # load user table
     user_df = df[['userId', 'firstName', 'lastName', 'gender', 'level']]
 
     # insert user records
-    for i, row in user_df.iterrows():
-        cur.execute(user_table_insert, row)
+    insert_dataframe(cur, user_df, user_table_insert)
 
     # insert songplay records
-    for index, row in df.iterrows():
-        
-        # get songid and artistid from song and artist tables
-        cur.execute(song_select, (row.song, row.artist, row.length))
-        results = cur.fetchone()
-        
-        if results:
-            songid, artistid = results
-        else:
-            songid, artistid = None, None
+    insert_facts_songplays(cur, df)
 
-        # insert songplay record
-        songplay_data = (row.ts, row.userId, row.level, songid, artistid,
-                         row.itemInSession, row.location, row.userAgent)
-        cur.execute(songplay_table_insert, songplay_data)
+
+def get_all_files_matching_from_directory(directorypath, match):
+    """
+    Get all the files that match into a directory recursively.
+    :param directorypath: path/to/directory.
+    :param match: match expression.
+    :return: array with all the files that match.
+    """
+    # get all files matching extension from directory
+    all_files = []
+    for root, dirs, files in os.walk(directorypath):
+        files = glob.glob(os.path.join(root, match))
+        for f in files :
+            all_files.append(os.path.abspath(f))
+
+    return all_files
 
 
 def process_data(cur, conn, filepath, func):
-    # get all files matching extension from directory
-    all_files = []
-    for root, dirs, files in os.walk(filepath):
-        files = glob.glob(os.path.join(root,'*.json'))
-        for f in files :
-            all_files.append(os.path.abspath(f))
+    """
+    Process all the data, either songs files or logs files
+    :param cur: connection cursor to insert the data in DB.
+    :param conn: connection to the database to do the commit.
+    :param filepath: path/to/data/type/directory
+    :param func: function to process, transform and insert into DB the data.
+    """
+
+    all_files = get_all_files_matching_from_directory(filepath, '*.json')
 
     # get total number of files found
     num_files = len(all_files)
