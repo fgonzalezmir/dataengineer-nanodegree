@@ -2,7 +2,7 @@
 
 This project is the first project of the Data Engineer Nanodegree in Udacity. 
 
-###Introduction
+### Introduction
 A startup called Sparkify wants to analyze the data they've been collecting on songs and user activity on their new 
 music streaming app. The analytics team is particularly interested in understanding what songs users are listening 
 to. Currently, they don't have an easy way to query their data, which resides in a directory of JSON logs on user 
@@ -13,16 +13,16 @@ analysis, and bring you on the project. Your role is to create a database schema
 You'll be able to test your database and ETL pipeline by running queries given to you by the analytics team from 
 Sparkify and compare your results with their expected results.
 
-###Project Description
+### Project Description
 In this project, you'll apply what you've learned on data modeling with Postgres and build an ETL pipeline using 
 Python. To complete the project, you will need to define fact and dimension tables for a star schema for a 
 particular analytic focus, and write an ETL pipeline that transfers data from files in two local directories i
 nto these tables in Postgres using Python and SQL.
 
-###Data Model
+### Data Model
 The data model I've implemented is a star model. It is the typical schema for a Data Warehouse. The tables are:
 
-####Fact Table
+#### Fact Table
 
 **Table songplays**
 
@@ -31,11 +31,11 @@ The data model I've implemented is a star model. It is the typical schema for a 
 |   songplay_id	| SERIAL  	|   PRIMARY KEY	| 
 |   start_time	|   bigint	|   NOT NULL	| 
 |   user_id	|   int	|   NOT NULL	| 
-|   level	|   varchar |   NOT NULL	| 
+|   level	|   varchar |   	| 
 |   song_id	|   varchar	|   	| 
 |   artist_id	|   varchar	|   	| 
-|   session_id	|   int	|   NOT NULL	| 
-|   location	|   text	|   NOT NULL	| 
+|   session_id	|   int	|   	| 
+|   location	|   text	|   	| 
 |   user_agent	|   text	|   	| 
 
 The songplay_id field is the primary key and it is an auto-incremental value.
@@ -53,10 +53,10 @@ The query to insert data on this table is:
  | COLUMN  	| TYPE  	| CONSTRAINT  	|
 |---	|---	|---	|	
 |   user_id	| int  	|   PRIMARY KEY	| 
-|   first_name	|   varchar	|  NOT NULL 	| 
-|   last_name	|   varchar	|  NOT NULL 	| 
+|   first_name	|   varchar	|  	| 
+|   last_name	|   varchar	|  	| 
 |   gender	|   varchar(1) |   	| 
-|   level	|   varchar	|   NOT NULL	| 
+|   level	|   varchar	|   	| 
 
  
  The query to insert data on this table is:
@@ -77,8 +77,8 @@ performance for the UPDATE. DO NOTHING is faster.
  | COLUMN  	| TYPE  	| CONSTRAINT   	|
 |---	|---	|---	|	
 |   song_id	| varchar  	|   PRIMARY KEY	| 
-|   title	|   text	|  NOT NULL	| 
-|   artist_id	|   varchar	|   NOT NULL	| 
+|   title	|   text	|  	| 
+|   artist_id	|   varchar	|   	| 
 |   year	|   int |   	| 
 |   duration	|   numeric	|   	| 
 
@@ -96,7 +96,7 @@ performance for the UPDATE. DO NOTHING is faster.
  | COLUMN  	| TYPE  	| CONSTRAINT   	|
 |---	|---	|---	|	
 |   artist_id	| varchar  	|   PRIMARY KEY	| 
-|   name	|   varchar	|   NOT NULL	| 
+|   name	|   varchar	|   	| 
 |   location	|   text	|   	| 
 |   latitude	|   decimal	|   	| 
 |   longitude	|   decimal |   	| 
@@ -116,12 +116,12 @@ performance for the UPDATE. DO NOTHING is faster.
  | COLUMN  	| TYPE  	| CONSTRAINT   	|
 |---	|---	|---	|	
 |   start_time	| bigint  	|   PRIMARY KEY	| 
-|   hour	|   int	|   NOT NULL	| 
-|   day	|   int	|   NOT NULL	| 
-|   week	|   int	|   NOT NULL	| 
-|   month	|   int	|   NOT NULL	| 
-|   year	|   int	|   NOT NULL	| 
-|   weekday	|   varchar	|   NOT NULL	| 
+|   hour	|   int	|   	| 
+|   day	|   int	|   	| 
+|   week	|   int	|   	| 
+|   month	|   int	|   	| 
+|   year	|   int	|   	| 
+|   weekday	|   varchar	|   	| 
 
  The query to insert data on this table is:
  
@@ -131,7 +131,7 @@ ON CONFLICT (start_time)
 DO NOTHING``
 
 ### Files in Python
-####ETL Pipeline
+#### ETL Pipeline
 
 The ETL is in the file **etl.py** and is divided in the next sections:
 
@@ -148,7 +148,7 @@ The ETL is in the file **etl.py** and is divided in the next sections:
     query using an additional INDEX in song table for the artist_id field to make the JOIN with artists table.
 4. Disconnect and finish.
     
-####sql_queries.py
+#### sql_queries.py
 
 This file contains all the queries to the database. 
  
@@ -158,7 +158,7 @@ This file contains all the queries to the database.
  3. The select to get artist_id and song_id in order to fill the songplays table.
 
 
-###Example Queries 
+### Example Queries 
 
 Here there are some examples of querying this data model
 
@@ -177,7 +177,7 @@ join artists A on A.artist_id = S.artist_id
 group by U.title , A.name 
 order by num_plays desc``
 
-###Local Execution
+### Local Execution
 
 For local execution you can use PostgreeSQL docker:
 

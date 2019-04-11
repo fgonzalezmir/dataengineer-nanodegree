@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f2e2e4c-825a-443d-a149-ea9faad2ea53" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project01-data-modeling-with-postgres/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/project01-data-modeling-with-postgres/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project01-data-modeling-with-postgres/create_tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/project01-data-modeling-with-postgres/create_tables.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project01-data-modeling-with-postgres/etl.py" beforeDir="false" afterPath="$PROJECT_DIR$/project01-data-modeling-with-postgres/etl.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project01-data-modeling-with-postgres/sql_queries.py" beforeDir="false" afterPath="$PROJECT_DIR$/project01-data-modeling-with-postgres/sql_queries.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,12 +13,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project01-data-modeling-with-postgres/sql_queries.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="1515">
+              <caret line="101" column="12" lean-forward="true" selection-end-line="114" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -27,8 +26,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project01-data-modeling-with-postgres/create_tables.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="61" column="10" lean-forward="true" selection-start-line="29" selection-end-line="61" selection-end-column="10" />
+            <state relative-caret-position="210">
+              <caret line="14" column="4" lean-forward="true" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -39,8 +38,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project01-data-modeling-with-postgres/etl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="177" lean-forward="true" selection-end-line="177" />
+            <state relative-caret-position="45">
+              <caret line="157" column="7" lean-forward="true" selection-start-line="157" selection-start-column="7" selection-end-line="157" selection-end-column="7" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -48,12 +47,12 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/project01-data-modeling-with-postgres/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="466">
-                <caret line="196" lean-forward="true" selection-end-line="196" />
+              <first_editor relative-caret-position="214">
+                <caret line="179" column="4" selection-start-line="179" selection-start-column="4" selection-end-line="179" selection-end-column="4" />
               </first_editor>
               <second_editor />
             </state>
@@ -74,9 +73,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/project01-data-modeling-with-postgres/etl.py" />
-        <option value="$PROJECT_DIR$/project01-data-modeling-with-postgres/README.md" />
         <option value="$PROJECT_DIR$/project01-data-modeling-with-postgres/create_tables.py" />
         <option value="$PROJECT_DIR$/project01-data-modeling-with-postgres/sql_queries.py" />
+        <option value="$PROJECT_DIR$/project01-data-modeling-with-postgres/README.md" />
       </list>
     </option>
   </component>
@@ -103,6 +102,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -119,13 +119,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -229,7 +228,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" weight="0.24958494" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.24958494" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32937366" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
@@ -309,40 +308,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/project01-data-modeling-with-postgres/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="466">
-            <caret line="196" lean-forward="true" selection-end-line="196" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project01-data-modeling-with-postgres/etl.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="177" lean-forward="true" selection-end-line="177" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/project01-data-modeling-with-postgres/create_tables.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="61" column="10" lean-forward="true" selection-start-line="29" selection-end-line="61" selection-end-column="10" />
+        <state relative-caret-position="210">
+          <caret line="14" column="4" lean-forward="true" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/project01-data-modeling-with-postgres/etl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="157" column="7" lean-forward="true" selection-start-line="157" selection-start-column="7" selection-end-line="157" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/project01-data-modeling-with-postgres/sql_queries.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="1515">
+          <caret line="101" column="12" lean-forward="true" selection-end-line="114" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project01-data-modeling-with-postgres/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="214">
+            <caret line="179" column="4" selection-start-line="179" selection-start-column="4" selection-end-line="179" selection-end-column="4" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
