@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f2e2e4c-825a-443d-a149-ea9faad2ea53" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/02-relational-data-models/.cassandraWorkbench/editors/1.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/02-relational-data-models/.cassandraWorkbench/editors/0.json" beforeDir="false" afterPath="$PROJECT_DIR$/02-relational-data-models/.cassandraWorkbench/editors/0.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/02-relational-data-models/.cassandraWorkbench/history.json" beforeDir="false" afterPath="$PROJECT_DIR$/02-relational-data-models/.cassandraWorkbench/history.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project02-data-modeling-with-cassandra/Project_1B_ Project_Template.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/project02-data-modeling-with-cassandra/Project_1B_ Project_Template.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project02-data-modeling-with-cassandra/event_datafile_new.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project02-data-modeling-with-cassandra/event_datafile_new.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project02-data-modeling-with-cassandra/Project_1B.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/project02-data-modeling-with-cassandra/Project_1B.ipynb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -51,7 +45,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/project02-data-modeling-with-cassandra/cassandra_mgr.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
+            <state relative-caret-position="165">
               <caret line="14" column="30" lean-forward="true" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
             </state>
           </provider>
@@ -379,7 +373,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project02-data-modeling-with-cassandra/cassandra_mgr.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
+        <state relative-caret-position="165">
           <caret line="14" column="30" lean-forward="true" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
         </state>
       </provider>
