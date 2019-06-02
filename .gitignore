@@ -3,3 +3,4 @@
 **/.vscode/
 **/.idea/
 *.cfg
+**/__pycache__/

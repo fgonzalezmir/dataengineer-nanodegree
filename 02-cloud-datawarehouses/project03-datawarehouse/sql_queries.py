@@ -18,7 +18,7 @@ staging_songs_table_drop = "DROP table IF EXISTS staging_songs;"
 songplays_table_drop = "DROP table IF EXISTS songplays;"
 users_table_drop = "DROP table IF EXISTS users;"
 songs_table_drop = "DROP table IF EXISTS songs;"
-artists_table_drop = "DROP table IF EXISTS artists;float"
+artists_table_drop = "DROP table IF EXISTS artists;"
 time_table_drop = "DROP table IF EXISTS time;"
 
 # CREATE TABLES
@@ -216,18 +216,17 @@ time_table_insert = ("""
         FROM staging_events se
         WHERE se.page = 'NextSong';
 
-
 """)
 
 # QUERY LISTS
 
-create_table_queries = [staging_events_table_create, staging_songs_table_create, user_table_create, \
+create_table_queries = [staging_events_table_create, staging_songs_table_create, user_table_create,
                         song_table_create, artist_table_create, time_table_create, songplay_table_create]
 
-drop_table_queries = [staging_events_table_drop, staging_songs_table_drop, songplays_table_drop, users_table_drop, \
+drop_table_queries = [staging_events_table_drop, staging_songs_table_drop, songplays_table_drop, users_table_drop,
                       songs_table_drop, artists_table_drop, time_table_drop]
 
 copy_table_queries = [staging_events_copy, staging_songs_copy]
 
-insert_table_queries = [songplay_table_insert, user_table_insert, song_table_insert, \
-                        artist_table_insert, time_table_insert],
+insert_table_queries = [songplay_table_insert, user_table_insert, song_table_insert,
+                        artist_table_insert, time_table_insert]
